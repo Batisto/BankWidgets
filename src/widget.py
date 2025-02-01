@@ -1,3 +1,5 @@
+from datetime import datetime
+
 def mask_account_card(input_string):
    """
    Маскирует номер карты или счета в зависимости от типа.
@@ -27,5 +29,24 @@ def mask_account_card(input_string):
        masked_number = mask_card_number(number)
 
    return f"{name} {masked_number}"
+
+
+def get_date(input_date):
+    """
+    Преобразует строку с датой из формата 'YYYY-MM-DDTHH:MM:SS.mmmmmm'
+    в формат 'ДД.ММ.ГГГГ'.
+
+    :param input_date: Строка с датой в формате 'YYYY-MM-DDTHH:MM:SS.mmmmmm'.
+    :return: Строка с датой в формате 'ДД.ММ.ГГГГ'.
+    """
+    try:
+        # Парсим входную строку в объект datetime
+        date_obj = datetime.strptime(input_date, "%Y-%m-%dT%H:%M:%S.%f")
+        # Форматируем дату в нужный формат
+        formatted_date = date_obj.strftime("%d.%m.%Y")
+        return formatted_date
+    except ValueError as e:
+        raise ValueError(f"Некорректный формат даты: {e}")
+
 
 
