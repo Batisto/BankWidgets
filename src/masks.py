@@ -15,6 +15,7 @@ def get_mask_card_number(card_number: int | str) -> str:
     masked = f"{first_six[:4]} {first_six[4:6]}** **** {last_four}"
     return masked
 
+
 def get_mask_account(account_number: int | str) -> str:
     """
     Маскирует номер счета, показывая только последние 4 цифры,
@@ -30,4 +31,3 @@ def get_mask_account(account_number: int | str) -> str:
     last_four = account_number[-4:]
     masked = f"**{last_four}"
     return masked
-    

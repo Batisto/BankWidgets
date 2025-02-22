@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 def filter_by_state(dictionary_list: list, state: str = 'EXECUTED') -> list:
     """
     Фильтрует список словарей по значению ключа 'state'.
@@ -27,6 +28,6 @@ def sort_by_date(dictionary_list: list, sort_method: str = 'latest'):
         :return: Отсортированный список словарей.
         """
     if sort_method == 'latest':
-        return sorted(dictionary_list, key=lambda x: datetime.fromisoformat(x['date']), reverse = True)
+        return sorted(dictionary_list, key=lambda x: datetime.fromisoformat(x['date']), reverse=True)
     else:
         return sorted(dictionary_list, key=lambda x: datetime.fromisoformat(x['date']))
