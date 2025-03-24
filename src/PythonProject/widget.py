@@ -32,7 +32,6 @@ def mask_account_card(input_string):
         masked_number = mask_account_number(number)
     else:
         masked_number = mask_card_number(number)
-        
 
     return f"{name} {masked_number}"
 
