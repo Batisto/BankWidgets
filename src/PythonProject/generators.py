@@ -33,4 +33,4 @@ def card_number_generator(start, end):
     :return: Номер карты
     """
     for number in range(start, end + 1):
-        yield " ".join(f"{number:016d}"[i : i + 4] for i in range(0, 16, 4))
+        yield " ".join(f"{number:016d}"[i:i + 4] for i in range(0, 16, 4))
