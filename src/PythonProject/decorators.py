@@ -3,6 +3,9 @@ import traceback
 
 
 def log(filename=None):
+    """
+    Декоратор для логирования результата выполнения функции
+    """
     def decorator(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
