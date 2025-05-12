@@ -38,7 +38,7 @@ def test_read_transactions_from_csv(mock_read_csv):
 
     result = read_transactions_from_csv("fake/path.csv")
 
-    mock_read_csv.assert_called_once_with("fake/path.csv", delimiter=';')
+    mock_read_csv.assert_called_once_with("fake/path.csv")
     mock_df.to_dict.assert_called_once_with(orient='records')
     assert result == sample_csv_data
 
