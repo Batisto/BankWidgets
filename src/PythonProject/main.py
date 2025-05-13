@@ -5,6 +5,7 @@ from utils import filter_transactions_by_description, count_operations_by_catego
 from processing import filter_by_state, sort_by_date
 from generators import filter_by_currency
 from file_parser import read_transactions_from_csv, read_transactions_from_excel
+from widget import mask_account_card, get_date
 
 
 def main():
@@ -17,14 +18,14 @@ def main():
     choice = input("Пользователь: ").strip()
 
     if choice == "1":
-        data = load_transactions("data/transactions.json")
+        data = load_transactions("data/operations.json")
         print("Для обработки выбран JSON-файл.")
     elif choice == "2":
         data = read_transactions_from_csv("data/transactions.csv")
         print("Для обработки выбран CSV-файл.")
     elif choice == "3":
         try:
-            data = read_transactions_from_excel("data/transactions.xlsx")
+            data = read_transactions_from_excel("data/transactions_excel.xlsx")
         except NotImplementedError as e:
             print(e)
             return
@@ -50,7 +51,7 @@ def main():
     if sort_choice == "да":
         order = input("Отсортировать по возрастанию или по убыванию?\nПользователь: ").strip().lower()
         order_param = "earliest" if order == "по возрастанию" else "latest"
-        filtered_by_state = sort_by_date(filtered_by_state)
+        filtered_by_state = sort_by_date(filtered_by_state, sort_method=order_param)
         print(f'Операции отсортированы {order_param}')
 
     ruble_choice = input("Выводить только рублевые транзакции? Да/Нет\nПользователь: ").strip().lower()
@@ -73,7 +74,7 @@ def main():
     print(f"Всего банковских операций в выборке: {len(filtered_by_state)}\n")
 
     for t in filtered_by_state:
-        date = t["date"].split("T")[0]
+        date = get_date(t["date"])
         description = t["description"]
         amount = t["operationAmount"]["amount"]
         currency = t["operationAmount"]["currency"]["name"]
@@ -81,8 +82,11 @@ def main():
         from_acc = t.get("from", "")
         to_acc = t.get("to", "")
 
+        masked_from = mask_account_card(from_acc) if from_acc else "[не указано}"
+        masked_to = mask_account_card(to_acc) if to_acc else "[не указано]"
+
         print(f"{date} {description}")
-        print(f"{from_acc} -> {to_acc}")
+        print(f"{masked_from} -> {masked_to}")
         print(f"Сумма: {amount} {currency}\n")
 
 if __name__ == "__main__":
