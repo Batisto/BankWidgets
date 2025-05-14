@@ -18,14 +18,14 @@ def main():
     choice = input("Пользователь: ").strip()
 
     if choice == "1":
-        data = load_transactions("data/operations.json")
+        data = load_transactions("../../data/operations.json")
         print("Для обработки выбран JSON-файл.")
     elif choice == "2":
-        data = read_transactions_from_csv("data/transactions.csv")
+        data = read_transactions_from_csv("../../data/transactions.csv")
         print("Для обработки выбран CSV-файл.")
     elif choice == "3":
         try:
-            data = read_transactions_from_excel("data/transactions_excel.xlsx")
+            data = read_transactions_from_excel("../../data/transactions_excel.xlsx")
         except NotImplementedError as e:
             print(e)
             return
