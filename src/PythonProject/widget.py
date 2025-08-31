@@ -23,6 +23,10 @@ def mask_account_card(input_string):
 
     name, number = " ".join(input_string.split()[:-1]), input_string.split()[-1]
 
+    # Проверяем, что номер состоит только из цифр
+    if not number.isdigit():
+        raise ValueError("Некорректный формат номера")
+
     # Определяем это счет или номер карты
     if name.startswith("Счет"):
         masked_number = mask_account_number(number)
